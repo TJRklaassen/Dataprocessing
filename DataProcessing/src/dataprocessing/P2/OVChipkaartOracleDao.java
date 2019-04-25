@@ -3,7 +3,7 @@ package dataprocessing.P2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OVChipkaartOracleDaoImpl implements OVChipkaartDao{
+public class OVChipkaartOracleDao extends OracleBaseDao implements OVChipkaartDao{
 	private ArrayList<OVChipkaart> kaartLijst = new ArrayList<OVChipkaart>();
 	
 	public List<OVChipkaart> findAll() {
