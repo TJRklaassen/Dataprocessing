@@ -81,20 +81,6 @@ public class ReizigerOracleDao extends OracleBaseDao implements ReizigerDao {
 		return reiziger;
 	}
 
-	public boolean delete(Reiziger reiziger) throws SQLException {
-		Connection conn = getConnection();
-		
-		String queryText = "DELETE FROM reiziger WHERE reizigerid = ?";
-		PreparedStatement pstmt = conn.prepareStatement(queryText);
-		pstmt.setInt(1, reiziger.getReizigerID());
-		pstmt.executeUpdate();
-		
-		pstmt.close();
-		closeConnection();
-		
-		return true;
-	}
-
 	public Reiziger update(Reiziger reiziger) throws SQLException {
 		Connection conn = getConnection();
 		
@@ -111,5 +97,19 @@ public class ReizigerOracleDao extends OracleBaseDao implements ReizigerDao {
 		closeConnection();
 		
 		return reiziger;
+	}
+	
+	public boolean delete(Reiziger reiziger) throws SQLException {
+		Connection conn = getConnection();
+		
+		String queryText = "DELETE FROM reiziger WHERE reizigerid = ?";
+		PreparedStatement pstmt = conn.prepareStatement(queryText);
+		pstmt.setInt(1, reiziger.getReizigerID());
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		closeConnection();
+		
+		return true;
 	}
 }

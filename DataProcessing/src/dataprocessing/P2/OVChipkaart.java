@@ -3,25 +3,25 @@ package dataprocessing.P2;
 import java.sql.Date;
 
 public class OVChipkaart {
-	private int kaartNummer;
+	private int kaartnummer;
 	private Date geldigTot;
 	private int klasse;
 	private double saldo;
 	private Reiziger kaarthouder;
 	
-	public OVChipkaart(int kaartNummer, Date geldigTot, int klasse, double saldo, Reiziger kaarthouder) {
-		setKaartNummer(kaartNummer);
+	public OVChipkaart(int kaartnummer, Date geldigTot, int klasse, double saldo, Reiziger kaarthouder) {
+		setKaartnummer(kaartnummer);
 		setGeldigTot(geldigTot);
 		setKlasse(klasse);
 		setSaldo(saldo);
 		setKaarthouder(kaarthouder);
 	}
 	
-	public int getKaartNummer() {
-		return kaartNummer;
+	public int getKaartnummer() {
+		return kaartnummer;
 	}
-	public void setKaartNummer(int kaartNummer) {
-		this.kaartNummer = kaartNummer;
+	public void setKaartnummer(int kaartnummer) {
+		this.kaartnummer = kaartnummer;
 	}
 	public Date getGeldigTot() {
 		return geldigTot;
