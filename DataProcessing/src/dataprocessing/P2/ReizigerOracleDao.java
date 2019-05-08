@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReizigerOracleDao extends OracleBaseDao implements ReizigerDao {
-	public List<Reiziger> findAll() throws SQLException {
+	
+	public ArrayList<Reiziger> findAll() throws SQLException {		
+		OVChipkaartOracleDao kaartDao = new OVChipkaartOracleDao();
+		
 		Connection conn = getConnection();
 		Statement stmt = conn.createStatement();
-		List<Reiziger> list = new ArrayList<Reiziger>();
+		ArrayList<Reiziger> list = new ArrayList<Reiziger>();
 		
 		String queryText = "SELECT * FROM reiziger";
 		ResultSet rs = stmt.executeQuery(queryText);
@@ -26,6 +29,8 @@ public class ReizigerOracleDao extends OracleBaseDao implements ReizigerDao {
 			Date geboortedatum = rs.getDate("gebortedatum");
 			
 			Reiziger r = new Reiziger(reizigerID, voorletters, tussenvoegsel, achternaam, geboortedatum);
+			r.setKaarten(kaartDao.findByKaarthouder(r));
+			
 			list.add(r);
 		}
 		
@@ -35,7 +40,32 @@ public class ReizigerOracleDao extends OracleBaseDao implements ReizigerDao {
 		
 		return list;
 	}
-
+	
+	public Reiziger findByReizigerID(int id) throws SQLException {
+		OVChipkaartOracleDao kaartDao = new OVChipkaartOracleDao();
+		
+		Connection conn = getConnection();
+		String queryText2 = "SELECT * FROM reiziger WHERE reizigerid = ?";
+		PreparedStatement pstmt = conn.prepareStatement(queryText2);
+		pstmt.setInt(1, id);
+		ResultSet rs = pstmt.executeQuery();
+		
+		rs.next();
+		int reizigerID = rs.getInt("reizigerid");
+		String voorletters = rs.getString("voorletters");
+		String tussenvoegsel = rs.getString("tussenvoegsel");
+		String achternaam = rs.getString("achternaam");
+		Date geboortedatum = rs.getDate("gebortedatum");
+		
+		Reiziger r = new Reiziger(reizigerID, voorletters, tussenvoegsel, achternaam, geboortedatum);
+		r.setKaarten(kaartDao.findByKaarthouder(r));
+		
+		rs.close();
+		pstmt.close();
+		
+		return r;
+	}
+	
 	public List<Reiziger> findByGbdatum(String gbdatum) throws SQLException {
 		Connection conn = getConnection();
 		List<Reiziger> list = new ArrayList<Reiziger>();
@@ -99,17 +129,22 @@ public class ReizigerOracleDao extends OracleBaseDao implements ReizigerDao {
 		return reiziger;
 	}
 	
-	public boolean delete(Reiziger reiziger) throws SQLException {
-		Connection conn = getConnection();
-		
-		String queryText = "DELETE FROM reiziger WHERE reizigerid = ?";
-		PreparedStatement pstmt = conn.prepareStatement(queryText);
-		pstmt.setInt(1, reiziger.getReizigerID());
-		pstmt.executeUpdate();
-		
-		pstmt.close();
-		closeConnection();
-		
-		return true;
+	public boolean delete(Reiziger reiziger) {
+		try {
+			Connection conn = getConnection();
+			
+			String queryText = "DELETE FROM reiziger WHERE reizigerid = ?";
+			PreparedStatement pstmt = conn.prepareStatement(queryText);
+			pstmt.setInt(1, reiziger.getReizigerID());
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			closeConnection();
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

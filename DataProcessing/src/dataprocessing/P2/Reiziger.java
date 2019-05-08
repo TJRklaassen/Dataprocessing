@@ -1,6 +1,7 @@
 package dataprocessing.P2;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Reiziger {
 	private int reizigerID;
@@ -8,6 +9,7 @@ public class Reiziger {
 	private String tussenvoegsel;
 	private String achternaam;
 	private Date gbdatum;
+	private ArrayList<OVChipkaart> kaarten = new ArrayList<OVChipkaart>();
 	
 	public Reiziger(int reizigerID, String voorletters, String tussenvoegsel, String achternaam, Date gbdatum) {
 		setReizigerID(reizigerID);
@@ -55,5 +57,13 @@ public class Reiziger {
 
 	public void setGbdatum(Date gbdatum) {
 		this.gbdatum = gbdatum;
+	}
+
+	public ArrayList<OVChipkaart> getKaarten() {
+		return kaarten;
+	}
+
+	public void setKaarten(ArrayList<OVChipkaart> kaarten) {
+		this.kaarten = kaarten;
 	}
 }
