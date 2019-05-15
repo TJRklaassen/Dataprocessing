@@ -1,0 +1,46 @@
+package dataprocessing.P3;
+
+import java.sql.SQLException;
+
+public class Main {
+	private static ProductOracleDao productDao = new ProductOracleDao();
+	
+	public static void main(String[] arg) throws SQLException {
+		
+		productDao.findAll();
+		System.out.println();
+		productDao.findAllWithCards();
+		
+//		//De rest is allemaal het testen van de standaard methodes die hetzelfde werkten als bij Reiziger en OV-Chipkaart
+//		//Testen of save() werkt
+//		System.out.println("save() test:");
+//		Product p1 = new Product(7, "Dagkaart 1e klas", "Een hele dag onbeperkt reizen met de trein in 1e klas.", 72.50);
+//		productDao.save(p1);
+//		printFindAll();
+//		
+//		//Testen of delete() werkt
+//		System.out.println("delete() test:");
+//		productDao.delete(p1);
+//		printFindAll();
+//		
+//		//Testen of update() werkt
+//		System.out.println("update() test:");
+//		Product p2 = new Product(5, "Railrunner 12-", "Voordelig reizen voor kinderen onder de 12.", 3);
+//		productDao.update(p2);
+//		printFindAll();
+//		
+//		//Herstelt oude waarden om later opnieuw update() te kunnen testen
+//		p2 = new Product(5, "Railrunner", "Voordelig reizen voor kinderen", 2.50);
+//		productDao.update(p2);
+	}
+	
+	public static void printFindByKaart(OVChipkaart kaart) throws SQLException {
+	//Test findByKaart() en relatie tussen product en ov_chipkaart
+		System.out.println("Alle producten die op kaart met kaartnummer "+kaart.getKaartnummer()+" zitten:");
+		for(Product p : productDao.findByKaart(kaart)){
+			System.out.println(String.format("%s. %s. %s > prijs: %s",
+				p.getProductNummer(), p.getProductNaam(), p.getBeschrijving(), p.getPrijs()));
+		}
+		System.out.println();
+	}
+}
