@@ -113,7 +113,45 @@ public class OVChipkaartOracleDao extends OracleBaseDao implements OVChipkaartDa
 		
 		return list;
 	}
-
+	
+	public void addProductToKaart(int ovProductId, OVChipkaart kaart, Product product) throws SQLException {
+		kaart.addProductToKaart(product);
+		
+		Connection conn = getConnection();
+		
+		String queryText = "INSERT INTO ov_chipkaart_product VALUES (?,?,?,?,CURRENT_DATE)";
+		PreparedStatement pstmt = conn.prepareStatement(queryText);
+		pstmt.setInt(1, ovProductId);
+		pstmt.setInt(2, kaart.getKaartnummer());
+		pstmt.setInt(3, product.getProductNummer());
+		pstmt.setString(4, "actief");
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		closeConnection();
+	}
+	
+	public boolean deleteProductFromKaart(OVChipkaart kaart, Product product) throws SQLException {
+		kaart.deleteProductFromKaart(product);
+		
+		try {
+			Connection conn = getConnection();
+			
+			String queryText = "DELETE FROM ov_chipkaart_product WHERE kaartnummer = ? AND productnummer = ?";
+			PreparedStatement pstmt = conn.prepareStatement(queryText);
+			pstmt.setInt(1, kaart.getKaartnummer());
+			pstmt.setInt(2, product.getProductNummer());
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			closeConnection();
+			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 	public OVChipkaart save(OVChipkaart kaart) throws SQLException {
 		Connection conn = getConnection();
 		

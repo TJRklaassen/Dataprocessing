@@ -24,8 +24,8 @@ public class ProductOracleDao extends OracleBaseDao implements ProductDao {
 						p.getProductNummer(), p.getProductNaam(), p.getBeschrijving(), p.getPrijs()));
 				productList.add(p);
 			}
-			System.out.println();
 		}
+		System.out.println();
 		return productList;
 	}
 	
@@ -58,8 +58,8 @@ public class ProductOracleDao extends OracleBaseDao implements ProductDao {
 				System.out.println(String.format("Kaartnummer: %s, Einddatum: %s, Klasse: %s, Saldo: %s",
 						ov.getKaartnummer(), ov.getGeldigTot(), ov.getKlasse(), ov.getSaldo()));
 			}
-			System.out.println();
 		}
+		System.out.println();
 		
 		rs.close();
 		stmt.close();

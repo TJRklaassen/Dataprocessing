@@ -58,5 +58,11 @@ public class OVChipkaart {
 		this.productenOpKaart = productenOpKaart;
 	}
 	
+	public void addProductToKaart(Product product) {
+		this.productenOpKaart.add(product);
+	}
 	
+	public void deleteProductFromKaart(Product product) {
+		this.productenOpKaart.remove(product);
+	}
 }
