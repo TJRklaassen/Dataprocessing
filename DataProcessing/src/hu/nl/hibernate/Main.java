@@ -14,6 +14,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import hu.nl.hibernate.pojo.Reiziger;
+
+//Deze Main wordt niet gebruikt voor P5. Gebruik Main2.java
 public class Main {
 private static SessionFactory factory;
   public static void main(String[] args) throws SQLException, ParseException {

@@ -1,11 +1,16 @@
-package hu.nl.hibernate;
+package hu.nl.hibernate.pojo;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,7 +32,9 @@ public class Reiziger {
 	@Column(name = "GEBORTEDATUM")
 	private Date gbdatum;
 	
-	//private ArrayList<OVChipkaart> kaarten = new ArrayList<OVChipkaart>();
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name = "REIZIGERID")
+	private Set<OVChipkaart> kaarten;
 	
 	public Reiziger() {}
 	
@@ -79,11 +86,11 @@ public class Reiziger {
 		this.gbdatum = gbdatum;
 	}
 
-//	public ArrayList<OVChipkaart> getKaarten() {
-//		return kaarten;
-//	}
-//
-//	public void setKaarten(ArrayList<OVChipkaart> kaarten) {
-//		this.kaarten = kaarten;
-//	}
+	public Set<OVChipkaart> getKaarten() {
+		return kaarten;
+	}
+
+	public void setKaarten(Set<OVChipkaart> kaarten) {
+		this.kaarten = kaarten;
+	}
 }
