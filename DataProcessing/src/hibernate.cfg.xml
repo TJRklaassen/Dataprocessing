@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 5.4//EN"  
+          "http://www.hibernate.org/dtd/hibernate-configuration-5.3.dtd">
+  
+<hibernate-configuration>
+    <session-factory>
+        <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
+        <property name="connection.url">jdbc:oracle:thin:@//localhost:1521/XEPDB1</property>  
+        <property name="connection.username">PERSISTENCE</property>
+        <property name="connection.password">db</property>
+        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>  
+        
+        <mapping class="hu.nl.hibernate.Reiziger"/> 
+    	<!--<mapping resource="Reiziger.hbm.xml"/>-->
+    </session-factory>
+</hibernate-configuration> 
